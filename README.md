@@ -2,38 +2,8 @@
 
 A React-based frontend application that displays notifications sorted by priority using a weighted scoring algorithm combining notification type, freshness, and view status.
 
-## Features
 
-- **Weighted Priority Sorting** - Notifications ranked by type weight, freshness, and read status
-- **Real-time Filtering** - Filter by all, new, or viewed notifications
-- **Search Functionality** - Full-text search across notification messages
-- **Persistent State** - View status saved to localStorage
-- **Responsive Design** - Mobile and desktop optimized UI
-- **Dark Theme** - Modern glass-morphism styling with Vanilla CSS
-
-## Project Structure
-
-```
-2117230020185_frontend/
-├── notification_app_fe/      # React frontend application
-│   ├── src/
-│   │   ├── App.jsx           # Main component with notification logic
-│   │   ├── App.css           # Responsive styling
-│   │   ├── index.css         # Global dark theme
-│   │   └── main.jsx          # React entry point
-│   ├── public/               # Static assets
-│   ├── index.html            # HTML entry point
-│   ├── package.json          # Dependencies
-│   ├── vite.config.ts        # Vite configuration (port 3000)
-│   └── README.md             # Frontend setup
-├── notification_app_be/      # Backend API service
-├── logging_middleware/       # Logging utilities
-├── notification_system_design.md  # System architecture
-└── .gitignore
-
-```
-
-## Quick Start (Frontend)
+## Steps
 
 ```bash
 cd notification_app_fe
@@ -49,20 +19,6 @@ Server runs on `http://localhost:3000`
 - **Vite** 8.0.10 (build tool)
 - **JavaScript** (JSX, no TypeScript)
 - **Vanilla CSS** (no external frameworks)
-
-## Notification Weight Algorithm
-
-```
-Score = TypeScore + FreshnessBoost + UnreadBoost
-
-Type Weights:
-- Security: 100
-- Billing: 90
-- Task: 82
-- System: 54
-- Reminder: 48
-- Social: 35
-```
 
 ## API Integration
 
@@ -118,27 +74,6 @@ Frontend connects to notification service at: `http://20.207.122.201/evaluation-
   pkill -f vite
   ```
 
-Tips and environment variables
-
-- If you were given registration credentials or a token, store them in a local environment file so the app can use them. Create a file named `.env.local` inside `notification_app_fe` with values like:
-
-  ```text
-  VITE_ACCESS_TOKEN=your_access_token_here
-  VITE_ACCESS_CODE=BTCDqT
-  VITE_CLIENT_ID=your_client_id
-  VITE_CLIENT_SECRET=your_client_secret
-  ```
-
-  Do not commit `.env.local` to GitHub. It's already excluded by the repository `.gitignore`.
-
-- If the UI shows "Showing sample data because the notification API is unavailable", open your browser DevTools → Network and Console and check:
-  - The request to `/evaluation-service/notifications` is sent.
-  - The `Authorization` header is present (Bearer token) if required.
-  - The response status and body. If you see a 4xx/5xx error, copy the response and paste it here and I will help diagnose.
-
-Build and preview (production)
-
-- Create a production build and preview it locally:
 
   ```bash
   npm run build
