@@ -175,10 +175,15 @@ function App() {
         })
 
         if (!response.ok) {
-          throw new Error(`Request failed with ${response.status}`)
+          const txt = await response.text().catch(() => '')
+          const msg = `API request failed: ${response.status} ${response.statusText} ${txt}`
+          console.error(msg)
+          setError(msg)
+          throw new Error(msg)
         }
 
         const data = await response.json()
+        console.debug('notifications fetch succeeded, items:', Array.isArray(data?.notifications) ? data.notifications.length : 0)
         const nextNotifications = normalizeNotifications(data)
 
         if (nextNotifications.length > 0) {
@@ -186,7 +191,8 @@ function App() {
         }
       } catch (requestError) {
         if (requestError?.name !== 'AbortError') {
-          setError('Showing sample data because the notification API is unavailable.')
+          console.error('notification fetch error', requestError)
+          setError(`Showing sample data because the notification API is unavailable. (${requestError?.message || 'unknown error'})`)
         }
       } finally {
         setLoading(false)
