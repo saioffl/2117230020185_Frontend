@@ -166,8 +166,12 @@ function App() {
         setLoading(true)
         setError('')
 
+        const token = import.meta.env.VITE_ACCESS_TOKEN || ''
+        const headers = token ? { Authorization: `Bearer ${token}` } : {}
+
         const response = await fetch(API_URL, {
           signal: controller.signal,
+          headers,
         })
 
         if (!response.ok) {
